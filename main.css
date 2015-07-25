@@ -1,0 +1,10 @@
+#possible-cards li {
+  display: inline-block;
+}
+
+#cards li.shown span.name{
+  visibility: show;
+}
+#cards li.hidden span.name{
+  visibility: hidden;
+}

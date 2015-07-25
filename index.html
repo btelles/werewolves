@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="foundation-5.5.2/css/foundation.css"></style>
+    <link type="text/css" rel="stylesheet" href="main.css"></style>
+    <script src="angular.js"></script>
+    <script src="lodash.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body ng-app="werewolvesApp">
+    <section ng-controller="AvailableCardsCtrl">
+      <section ng-show="showCardSelection" class='panel'>
+        <ul id="possible-cards" class="row">
+          <li class="large-3 columns" ng-repeat="card in cardList">
+          <input name="{{card.name}}" type="checkbox" ng-model="card.selected"/>
+          <label for="{{card.name}}">{{card.name}} <span ng-if="card.selected">*</span></label>
+          </li>
+        </ul>
+        <p class="row">You've selected {{totalSelected}} card(s).</p>
+        <p><button value="Start" ng-click="startGame()" >Start</button></p>
+      </section>
+      <section id="intro" ng-show="showIntro">
+        <h1>Welcome to Werewolf One Night!</h1>
+        <p>Everyone except one person, close your eyes.</p>
+        <p>Person with your eyes opened, click the 'Next' button below.</p>
+      </section>
+      <section id="instructions" ng-show="showInstructions">
+        <ol>
+          <li>Click 'next' to see your card (if you are the first person, you shouldn't have to click it).</li>
+          <li>Memorize your card name</li>
+          <li>Click 'next' once more time</li>
+          <li>Close your eyes</li>
+          <li>Tell the person next to you to open their eyes, and follow the instructions.</li>
+        </ol>
+      </section>
+      <section ng-show="showClosingStatements">
+        <h1>Everyone, wake up!</h1>
+        <p>Turn the one night app on and follow the instructions.</p>
+        <p>To move cards around, simply drag and drop them.</p>
+        <p>To view a card, simply tap on it.</p>
+      </section>
+      <section id="game-play" ng-show="showGamePlay">
+        <p><button value="Next" ng-click="advanceGame()" ng-show="showNextButton">Next</button></p>
+        <ol id="center-cards">
+          <li ng-repeat="card in centerCards" class="{{card.visibility}}" ng-click="toggleVisibility(card)" >
+            <h3 draggable="true" ondrag="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+              <span class="cover">Werewolves</span>
+              <span class="name">{{card.name}}</span>
+            </h3>
+          </li>
+        </ol>
+        <ol id="player-cards">
+          <li ng-repeat="card in playerCards" class="{{card.visibility}}" ng-click="toggleVisibility(card)" >
+            <h3 draggable="true" ondrag="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+              <span class="cover">Werewolves</span>
+              <span class="name">{{card.name}}</span>
+            </h3>
+          </li>
+        </ol>
+      </section>
+    </section>
+  </body>
+</html>
